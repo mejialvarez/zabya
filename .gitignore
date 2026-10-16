@@ -1,0 +1,30 @@
+# Netlify (vínculo local del sitio)
+.netlify/
+
+# Llaves, secretos y variables de entorno
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+id_rsa*
+id_ed25519*
+secrets.*
+credentials.*
+*.secret
+
+# Dependencias y builds
+node_modules/
+dist/
+build/
+
+# Sistema y editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.log
