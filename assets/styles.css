@@ -79,6 +79,18 @@ a{color:var(--blue-600)}a:hover{color:var(--navy-900)}
 .in{background:var(--white);color:var(--slate-800);align-self:flex-start;border-bottom-left-radius:4px}
 .out{background:var(--tint-blue);border:1px solid var(--line-on-navy);color:var(--white);align-self:flex-end;border-bottom-right-radius:4px}
 .note{margin:14px 0 0;font-size:13px;color:var(--mist-300);max-width:380px}
+.ph .status{display:block;font-size:12.5px;line-height:1.3;color:var(--mist-300);margin-top:2px}
+.slot{position:relative;display:flex}
+.slot.s-in{justify-content:flex-start}
+.slot.s-out{justify-content:flex-end}
+.b.wait{opacity:0;transform:translateY(8px)}
+.b.shown{opacity:1;transform:none;transition:opacity .35s ease,transform .35s ease}
+.b.fade{opacity:0;transition:opacity .6s ease}
+.typing{position:absolute;top:0;right:0;display:inline-flex;gap:5px;align-items:center;padding:13px 14px;border-radius:var(--radius-sm);border-bottom-right-radius:4px;background:var(--tint-blue);border:1px solid var(--line-on-navy)}
+.typing i{display:block;width:7px;height:7px;border-radius:50%;background:var(--mist-300);animation:blink 1.2s infinite ease-in-out}
+.typing i:nth-child(2){animation-delay:.2s}
+.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.35;transform:translateY(0)}40%{opacity:1;transform:translateY(-3px)}}
 .people{position:relative;overflow:hidden;margin-top:48px;background:radial-gradient(100% 90% at 100% 0%,var(--tint-blue),transparent 70%),var(--navy-700);border:1px solid var(--line-on-navy);border-radius:var(--radius-xl);padding:28px 24px;color:var(--mist-300);font-size:16px;line-height:1.6}
 .people .h3{margin:0 0 10px}
 .people p{margin:0;max-width:720px}
@@ -152,7 +164,8 @@ details p{margin:0;padding:0 20px 20px;font-size:16px;line-height:1.6;color:var(
 .chat-block{justify-items:center;gap:32px}
 .chat-block>.h3{text-align:center}
 .chat-block>div{width:100%;max-width:380px}
-.faq-wrap{max-width:820px}
+.faq-wrap{max-width:820px;margin-left:auto;margin-right:auto}
+.faq-wrap>.h2{text-align:center}
 }
 @media (min-width:1120px){.h1{font-size:64px}}
 @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}html{scroll-behavior:auto}}

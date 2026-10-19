@@ -81,18 +81,18 @@
 <div class="chat-block">
 <p class="h3" style="max-width: 460px;">Así se ve una conversación a las 9:47 p. m.</p>
 <div>
-<figure class="phone" role="group" aria-label="Ejemplo de conversación por WhatsApp" style="margin: 0;">
-<div class="ph"><div class="av" aria-hidden="true">G</div><b>Asistente · Grupo Nova</b></div>
+<figure class="phone" id="chat" role="group" aria-label="Ejemplo de conversación por WhatsApp" style="margin: 0;">
+<div class="ph"><div class="av" aria-hidden="true">G</div><div><b>Asistente · Grupo Nova</b><span class="status" id="chat-status">en línea</span></div></div>
 <div class="msgs">
 <p class="who">Cliente · 9:47 p. m.</p>
-<p class="b in">Hola, ¿hasta qué hora atienden?</p>
-<p class="b out">Hola. Nuestro horario es de lunes a viernes de 8:00 a. m. a 6:00 p. m. y los sábados hasta la 1:00 p. m. Por este chat te respondo a cualquier hora. ¿En qué te ayudo?</p>
-<p class="b in">¿Qué servicios tienen y cuánto cuestan?</p>
-<p class="b out">Tenemos tres opciones: Esencial, $150.000; Completo, $280.000, y A la medida, desde $450.000. ¿Te cuento en qué se diferencian?</p>
-<p class="b in">Sí, porfa.</p>
-<p class="b out">El Esencial cubre lo básico. El Completo suma seguimiento y soporte prioritario. El A la medida se arma según lo que necesites. Si me cuentas qué buscas, te digo cuál te conviene más.</p>
-<p class="b in">Creo que el Completo. ¿Cómo lo tomo?</p>
-<p class="b out">Perfecto. Ya quedó registrado el servicio Completo a tu nombre. Por este mismo chat te llega la confirmación.</p>
+<div class="slot s-in"><p class="b in">Hola, ¿hasta qué hora atienden?</p></div>
+<div class="slot s-out"><p class="b out">Hola. Nuestro horario es de lunes a viernes de 8:00 a. m. a 6:00 p. m. y los sábados hasta la 1:00 p. m. Por este chat te respondo a cualquier hora. ¿En qué te ayudo?</p></div>
+<div class="slot s-in"><p class="b in">¿Qué servicios tienen y cuánto cuestan?</p></div>
+<div class="slot s-out"><p class="b out">Tenemos tres opciones: Esencial, $150.000; Completo, $280.000, y A la medida, desde $450.000. ¿Te cuento en qué se diferencian?</p></div>
+<div class="slot s-in"><p class="b in">Sí, porfa.</p></div>
+<div class="slot s-out"><p class="b out">El Esencial cubre lo básico. El Completo suma seguimiento y soporte prioritario. El A la medida se arma según lo que necesites. Si me cuentas qué buscas, te digo cuál te conviene más.</p></div>
+<div class="slot s-in"><p class="b in">Creo que el Completo. ¿Cómo lo tomo?</p></div>
+<div class="slot s-out"><p class="b out">Perfecto. Ya quedó registrado el servicio Completo a tu nombre. Por este mismo chat te llega la confirmación.</p></div>
 </div>
 </figure>
 <p class="note">Ejemplo ilustrativo · Empresa ficticia</p>
@@ -181,14 +181,13 @@
 </nav>
 </div>
 <div class="foot-bottom">
-<span>© 2026 ZABYA. Todos los derechos reservados.</span>
-<a class="flink" href="#privacidad" style="min-height: 0;">Política de privacidad y tratamiento de datos</a>
-</div>
+<span>© 2026 ZABYA. Todos los derechos reservados.</span></div>
 </div>
 </footer>
 
 
 </div>
 <script src="assets/main.js"></script>
+<script src="assets/chat.js"></script>
 </body>
 </html>
