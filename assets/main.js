@@ -24,3 +24,9 @@
     if (e.matches) setOpen(false);
   });
 })();
+
+// Meta Pixel: conversión al abrir WhatsApp
+document.addEventListener('click', function (e) {
+  var link = e.target.closest('a[href^="https://wa.me/"]');
+  if (link && window.fbq) fbq('track', 'Lead');
+});
