@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="googlebot" content="noindex, nofollow">
+<title>Mafe · Demo Dra. Diana Mar</title>
+<link rel="preload" href="fonts/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/figtree.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* Self-hosted fonts: the private link never contacts third parties */
+@font-face{font-family:"Instrument Serif";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/instrument-serif.woff2) format("woff2")}
+@font-face{font-family:"Instrument Serif";font-style:italic;font-weight:400;font-display:swap;src:url(fonts/instrument-serif-italic.woff2) format("woff2")}
+@font-face{font-family:"Figtree";font-style:normal;font-weight:400 600;font-display:swap;src:url(fonts/figtree.woff2) format("woff2")}
+/* Layout: intro text on the left, Mafe's widget in a phone frame on the right */
+:root{
+  --bg:#f9bfc7;
+  --surface:#ffffff;
+  --ink:#3a2328;
+  --muted:#5e3c45;
+  --line:#f3aab5;
+  --brand:#ffffff;
+  --accent:#9c1c57;
+  --display:"Instrument Serif",Georgia,"Times New Roman",serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+/* Single-theme design: always pink with a white chat (no dark mode) */
+:root{color-scheme:light}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;
+  padding-block:32px 48px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+}
+.wrap{max-width:1040px;margin:0 auto}
+header.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-bottom:20px;border-bottom:3px solid var(--brand)}
+.brand{display:flex;align-items:center;gap:14px;font-family:var(--display);font-size:1.5rem;letter-spacing:.01em;min-width:0}
+.logo{width:72px;height:72px;border-radius:50%;flex:none;display:block;object-fit:cover;box-shadow:0 6px 18px -8px rgba(120,40,60,.4)}
+.tag{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+main{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);grid-template-areas:"intro stage" "tips stage";column-gap:56px;row-gap:0;align-items:start;padding-top:48px}
+.intro{grid-area:intro;min-width:0}
+.tips{grid-area:tips;min-width:0}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(2.4rem,5.5vw,4rem);line-height:1.02;margin:0 0 20px;text-wrap:balance}
+h1 em{color:var(--accent)}
+.lead{font-size:1.12rem;color:var(--muted);max-width:52ch;margin:0 0 32px}
+h2{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 14px;font-weight:600}
+.try{list-style:none;margin:0 0 32px;padding:0;display:grid;gap:10px}
+.try li{padding:14px 16px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.try b{display:block;font-weight:600}
+.try span{color:var(--muted);font-size:.95rem}
+.note{border-left:3px solid var(--accent);padding:4px 0 4px 14px;color:var(--muted);font-size:.95rem;max-width:56ch;margin:0}
+.stage{grid-area:stage;min-width:0;display:flex;flex-direction:column;align-items:center;gap:14px}
+.phone{width:100%;max-width:420px;background:var(--surface);border-radius:28px;padding:10px;overflow:hidden;box-shadow:0 12px 32px -12px rgba(120,40,60,.35)}
+.chat-locked{display:flex;align-items:center;justify-content:center;height:600px;border-radius:20px;background:var(--surface);color:var(--muted);text-align:center;padding:24px;font-size:.95rem}
+.wait-note{width:100%;max-width:420px;padding:12px 14px;border-radius:12px;background:var(--surface);color:var(--ink);font-size:.92rem;line-height:1.4;margin:0}
+.phone iframe{display:block;width:100%;height:600px;border:0;border-radius:20px;background:var(--surface)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:.88rem;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media (max-width:860px){
+  body{padding-block:16px 32px}
+  header.top{padding-bottom:12px}
+  .brand{font-size:1.15rem;gap:10px}
+  .logo{width:52px;height:52px}
+  main{grid-template-columns:minmax(0,1fr);grid-template-areas:"intro" "stage" "tips";row-gap:24px;padding-top:24px}
+  h1{font-size:2.1rem;margin-bottom:10px}
+  .lead{font-size:1rem;margin-bottom:0}
+  .phone{padding:6px;border-radius:22px}
+  .phone iframe,.chat-locked{height:min(600px,calc(100svh - 110px));border-radius:16px}
+  footer{margin-top:32px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><img class="logo" src="logo.webp" alt="" width="72" height="72"><span>Dra. Diana Mar · Wellness House</span></div>
+    <div class="tag">Demo del empleado digital</div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h1>Conoce a <em>Mafe</em>, la asistente virtual de la clínica.</h1>
+      <p class="lead">Mafe atiende a tus pacientes a cualquier hora, responde sus dudas sobre los servicios y las guía para agendar su valoración. Escríbele como lo haría una paciente nueva.</p>
+    </section>
+    <section class="tips">
+      <h2>Escríbele en el chat preguntas como estas</h2>
+      <ul class="try">
+        <li><b>Quiero agendar una valoración</b><span>Mira cómo Mafe guía el proceso paso a paso.</span></li>
+        <li><b>¿Qué tratamientos ofrecen?</b><span>Comprueba cómo explica los servicios de la clínica.</span></li>
+        <li><b>¿Dónde queda y en qué horarios atienden?</b><span>Ubicación y disponibilidad en una sola respuesta.</span></li>
+      </ul>
+      <p class="note">Esta es una versión de demostración. Las respuestas se pueden ajustar a la voz, los servicios y los protocolos de la Dra. Diana Mar antes de publicarla.</p>
+    </section>
+
+    <aside class="stage" aria-label="Chat con Mafe">
+      <div class="phone">
+        <div id="chat-slot" class="chat-locked" role="status" aria-live="polite">Abriendo el chat…</div>
+      </div>
+      <p class="wait-note" id="wait-note" hidden>Cuando le escribas, Mafe se tomará unos segundos para responder, como lo haría una persona.</p>
+    </aside>
+  </main>
+
+  <footer>
+    <span>Instagram @dradianamarwellnesshouse</span>
+    <span>Empleado digital creado por ZABYA</span>
+  </footer>
+</div>
+<script>
+// ES5 on purpose: old in-app browsers (Instagram, WhatsApp) must not fail to parse the script
+(function(){
+  var slot=document.getElementById('chat-slot');
+  var note=document.getElementById('wait-note');
+  var IV="l7MYaVYDm9IuPWss", CT="3bBH5KotZREgRt3UyDVGJzGDQZOc1r6jZlyodiiAUbY0-Uq93Gq6Nxx1GBYHPTvJcBqA0Sk0zEEHGXlTkZleIZ7b8a9x9ypknOjCbw";
+  var MSG_LINK='Este enlace está incompleto. Pide el enlace de la demo a quien te lo compartió.';
+  var MSG_ENV='No se pudo abrir el chat en este navegador. Abre el enlace con https en un navegador actualizado.';
+  var MSG_FAIL='No se pudo abrir el chat. Avísale a quien te compartió el enlace.';
+  function d(b){b=b.replace(/-/g,'+').replace(/_/g,'/');while(b.length%4)b+='=';var s=atob(b),u=new Uint8Array(s.length);for(var i=0;i<s.length;i++)u[i]=s.charCodeAt(i);return u}
+  var run=0;
+  function show(msg,err){
+    if(err) console.error('Mafe demo:',err);
+    slot.textContent=msg;
+  }
+  function urlSupported(){
+    try{ return new URL('https://example.com/').protocol==='https:' }catch(e){ return false }
+  }
+  // Messengers may percent-encode the fragment or glue text after it ('.', ')', '&utm_…'),
+  // so keep only the leading base64url run
+  function readKey(){
+    var h=location.hash.slice(1);
+    try{ h=decodeURIComponent(h) }catch(e){}
+    var m=h.match(/^[A-Za-z0-9_-]+/);
+    return m?m[0]:'';
+  }
+
+  function load(){
+    var id=++run;
+    slot.textContent='Abriendo el chat…';
+    if(!(window.crypto && crypto.subtle && window.TextDecoder && urlSupported())) return show(MSG_ENV);
+    var k=readKey();
+    if(!k) return show(MSG_LINK);
+    var key;
+    try{ key=d(k) }catch(e){ return show(MSG_LINK,e) }
+    // AES keys are 16, 24 or 32 bytes; any other length means the key was cut short
+    if([16,24,32].indexOf(key.length)<0) return show(MSG_LINK,new Error('longitud de clave inválida: '+key.length));
+
+    crypto.subtle.importKey('raw',key,'AES-GCM',false,['decrypt']).then(function(ck){
+      return crypto.subtle.decrypt({name:'AES-GCM',iv:d(IV)},ck,d(CT)).then(null,function(e){
+        // Right length but wrong bytes: the key was altered when the link was shared
+        e.isDecrypt=true; throw e;
+      });
+    }).then(function(buf){
+      if(id!==run) return;
+      var u;
+      try{
+        u=new URL(new TextDecoder().decode(buf));
+        // The link generator should already guarantee these; kept because the sandbox depends on them
+        if(u.protocol!=='https:') throw new Error('esquema no permitido: '+u.protocol);
+        // With allow-scripts + allow-same-origin, a same-origin iframe could remove its own sandbox
+        if(u.origin===location.origin) throw new Error('el chat no puede servirse desde este mismo dominio');
+      }catch(e){ return show(MSG_FAIL,e) }
+      var f=document.createElement('iframe');
+      f.id='chat-frame';
+      f.title='Chat con Mafe, asistente virtual de la Dra. Diana Mar';
+      // The chat provider may allowlist embedding domains by Referer, so send the origin (not the path)
+      f.allow='autoplay'; f.referrerPolicy='strict-origin-when-cross-origin';
+      f.setAttribute('sandbox','allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox');
+      // load also fires for blocked or error pages, so this only keeps the tip from showing before the frame renders;
+      // framing must be allowed for this domain on the provider side
+      f.onload=function(){ note.hidden=false };
+      f.src=u.href;
+      slot.parentNode.replaceChild(f,slot);
+    },function(e){
+      if(id!==run) return;
+      // importKey failing on a valid-length key means this browser's WebCrypto lacks AES-GCM
+      show(e && e.isDecrypt?MSG_LINK:MSG_ENV,e);
+    });
+  }
+
+  // Fixing the link in the same tab only changes the #, so try again; never once the chat is open
+  window.addEventListener('hashchange',function(){
+    if(!document.getElementById('chat-frame')) load();
+  });
+  load();
+})();
+</script>
+</body>
+</html>
