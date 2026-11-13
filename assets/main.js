@@ -1,4 +1,4 @@
-// Menú móvil
+// Mobile menu
 (function () {
   var toggle = document.getElementById('menu-toggle');
   var panel = document.getElementById('menu-panel');
@@ -25,8 +25,18 @@
   });
 })();
 
-// Meta Pixel: conversión al abrir WhatsApp
+// Meta Pixel: track a Lead when a WhatsApp link is opened
 document.addEventListener('click', function (e) {
   var link = e.target.closest('a[href^="https://wa.me/"]');
   if (link && window.fbq) fbq('track', 'Lead');
 });
+
+// Sticky bar: solid background once the announcement bar scrolls out of view
+(function () {
+  var annc = document.getElementById('annc');
+  var bar = document.getElementById('bar');
+  if (!annc || !bar || typeof IntersectionObserver === 'undefined') return;
+  new IntersectionObserver(function (en) {
+    bar.classList.toggle('is-stuck', !en[0].isIntersecting);
+  }).observe(annc);
+})();
