@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="googlebot" content="noindex, nofollow">
+<title>Demo Tucán Ecolodge</title>
+<link rel="preload" href="fonts/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/figtree.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* Self-hosted fonts: the private link never contacts third parties */
+@font-face{font-family:"Instrument Serif";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/instrument-serif.woff2) format("woff2")}
+@font-face{font-family:"Instrument Serif";font-style:italic;font-weight:400;font-display:swap;src:url(fonts/instrument-serif-italic.woff2) format("woff2")}
+@font-face{font-family:"Figtree";font-style:normal;font-weight:400 600;font-display:swap;src:url(fonts/figtree.woff2) format("woff2")}
+/* Layout: same template as the Diana Mar and Cindy demos (intro + chat in a phone frame), followed by the ecolodge content.
+   Palette taken from the Tucán logo: forest green, cocoa brown and beak orange. Single theme. */
+:root{
+  --bg:#eef1e6;
+  --surface:#ffffff;
+  --ink:#24331f;
+  --muted:#52604a;
+  --line:#d7dec6;
+  --brand:#1f4d36;
+  --accent:#b4520f;
+  --soft:#f6e9d9;
+  --display:"Instrument Serif",Georgia,"Times New Roman",serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;
+  padding-block:32px 48px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+}
+.wrap{max-width:1040px;margin:0 auto}
+header.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-bottom:20px;border-bottom:3px solid var(--surface)}
+.brand{display:flex;align-items:center;gap:14px;font-family:var(--display);font-size:1.5rem;letter-spacing:.01em;min-width:0}
+.logo{width:72px;height:72px;border-radius:50%;flex:none;display:block;background:var(--surface);box-shadow:0 6px 18px -8px rgba(31,77,54,.5)}
+.tag{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+main{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);grid-template-areas:"intro stage" "tips stage";column-gap:56px;align-items:start;padding-top:48px}
+.intro{grid-area:intro;min-width:0}
+.tips{grid-area:tips;min-width:0}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(2.4rem,5.5vw,4rem);line-height:1.02;margin:0 0 20px;text-wrap:balance}
+h1 em{color:var(--accent)}
+.lead{font-size:1.12rem;color:var(--muted);max-width:52ch;margin:0 0 20px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 32px;padding:0;list-style:none}
+.chips li{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 14px;font-size:.9rem;color:var(--muted)}
+h2{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 14px;font-weight:600}
+.try{list-style:none;margin:0 0 32px;padding:0;display:grid;gap:10px}
+.try li{padding:14px 16px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.try b{display:block;font-weight:600}
+.try span{color:var(--muted);font-size:.95rem}
+.note{border-left:3px solid var(--accent);padding:4px 0 4px 14px;color:var(--muted);font-size:.95rem;max-width:56ch;margin:0}
+.stage{grid-area:stage;min-width:0;display:flex;flex-direction:column;align-items:center;gap:14px}
+.phone{width:100%;max-width:420px;background:var(--surface);border-radius:28px;padding:10px;overflow:hidden;box-shadow:0 12px 32px -12px rgba(31,77,54,.35)}
+.phone iframe{display:block;width:100%;height:600px;border:0;border-radius:20px;background:var(--surface)}
+.pending{display:grid;place-items:center;text-align:center;height:600px;border-radius:20px;background:var(--bg);color:var(--muted);padding:24px;font-size:.95rem}
+.pending b{display:block;color:var(--ink);font-family:var(--display);font-size:1.4rem;font-weight:400;margin-bottom:6px}
+.wait-note{display:flex;align-items:center;gap:10px;width:100%;max-width:420px;padding:12px 14px;border-radius:12px;background:var(--surface);color:var(--ink);font-size:.92rem;line-height:1.4;margin:0}
+.dots{display:inline-flex;gap:4px;flex:none}
+.dots i{width:7px;height:7px;border-radius:50%;background:var(--accent);opacity:.35;animation:blink 1.2s infinite}
+.dots i:nth-child(2){animation-delay:.2s}.dots i:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.35}40%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.dots i{animation:none;opacity:.7}}
+.open{font-size:.9rem;color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* Ecolodge content */
+.block{margin-top:72px}
+.block h3.title{font-family:var(--display);font-weight:400;font-size:clamp(1.9rem,4vw,2.7rem);line-height:1.1;margin:0 0 8px;color:var(--brand);text-wrap:balance}
+.block .sub{color:var(--muted);max-width:60ch;margin:0 0 28px}
+.cabs{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))}
+.cab{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.cab .kind{align-self:flex-start;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--accent);background:var(--soft);padding:3px 10px;border-radius:999px}
+.cab h4{font-family:var(--display);font-weight:400;font-size:1.5rem;line-height:1.15;margin:0;color:var(--ink)}
+.cab p{margin:0;color:var(--muted);font-size:.95rem}
+.cab .meta{margin-top:auto;padding-top:10px;border-top:1px solid var(--line);font-size:.88rem;font-weight:600;color:var(--brand)}
+.band{background:var(--brand);color:#eaf2e6;border-radius:18px;padding:32px 28px}
+.band h3.title{color:#fff}
+.band .sub{color:#c6d8c4}
+.exp{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr))}
+.exp div{border:1px solid #ffffff33;border-radius:12px;padding:16px;min-width:0}
+.exp b{display:block;font-family:var(--display);font-weight:400;font-size:1.35rem;color:#fff;margin-bottom:2px}
+.exp span{font-size:.92rem;color:#c6d8c4}
+.where{display:grid;gap:24px;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}
+.where p{margin:0 0 10px;color:var(--muted)}
+.cta{display:inline-block;background:var(--accent);color:#fff;font-weight:600;text-decoration:none;border-radius:999px;padding:12px 24px;margin-top:6px}
+.cta:hover{filter:brightness(1.08)}
+.contact{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;font-size:.95rem;min-width:0;overflow-wrap:anywhere}
+.contact b{display:block;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:.88rem;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media (max-width:860px){
+  body{padding-block:16px 32px}
+  header.top{padding-bottom:12px}
+  .brand{font-size:1.15rem;gap:10px}
+  .logo{width:52px;height:52px}
+  main{grid-template-columns:minmax(0,1fr);grid-template-areas:"intro" "stage" "tips";row-gap:24px;padding-top:24px}
+  h1{font-size:2.1rem;margin-bottom:10px}
+  .lead{font-size:1rem;margin-bottom:14px}
+  .chips{margin-bottom:0}
+  .phone{padding:6px;border-radius:22px}
+  .phone iframe,.pending{height:min(600px,calc(100svh - 110px));border-radius:16px}
+  .block{margin-top:48px}
+  .band{padding:24px 18px}
+  .where{grid-template-columns:minmax(0,1fr)}
+  footer{margin-top:32px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <img class="logo" src="logo.webp" alt="Logo de Tucán Ecolodge" width="72" height="72">
+      <span>Tucán Ecolodge <span style="color:var(--muted)">· Manaure</span></span>
+    </div>
+    <div class="tag">Demo del empleado digital</div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h1>Descansa entre aves, montañas y <em>naturaleza</em>.</h1>
+      <p class="lead">Cabañas y piscina en Manaure Balcón del Cesar, a 40 minutos de Valledupar. Tuki, el empleado digital del ecolodge, responde a toda hora, recomienda la cabaña ideal y lleva a cada huésped al enlace de reservas. Escríbele como lo haría alguien que planea su escapada.</p>
+      <ul class="chips"><li>Avistamiento de aves</li><li>Piscina</li><li>Vista a las montañas</li><li>Cacao y chocolate</li></ul>
+    </section>
+
+    <section class="tips">
+      <h2>Pruébalo con preguntas como estas</h2>
+      <ul class="try">
+        <li><b>¿Tienen cabañas para dos personas?</b><span>Mira cómo recomienda Momotus o Euphonia para una escapada en pareja.</span></li>
+        <li><b>Vamos 10 personas en familia</b><span>Comprueba cómo propone la cabaña Tucán, de tres dormitorios.</span></li>
+        <li><b>¿Qué se puede hacer en el lugar?</b><span>Descubre cómo habla de aves, montañas, piscina y naturaleza.</span></li>
+        <li><b>¿Cómo llego desde Valledupar?</b><span>Ubicación en Manaure Balcón del Cesar y mapa.</span></li>
+        <li><b>Quiero reservar</b><span>Así guía a la persona hasta el enlace de reservas, donde elige fechas y paga.</span></li>
+      </ul>
+      <p class="note">Esta es una versión de demostración. Las respuestas se ajustan a la voz, los precios y las políticas de Tucán Ecolodge antes de publicarla. Tuki no inventa datos: si algo no lo sabe, pasa la conversación a una persona del equipo.</p>
+    </section>
+
+    <aside class="stage" aria-label="Chat con Tuki, el empleado digital de Tucán Ecolodge">
+      <div class="phone"><div id="chat-slot" class="pending" role="status" aria-live="polite">Abriendo el chat…</div></div>
+      <p class="wait-note"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span>Tuki se toma unos segundos para responder, como lo haría una persona. Tu respuesta va en camino.</span></p>
+    </aside>
+  </main>
+
+  <section class="block" id="cabanas">
+    <h3 class="title">Elige tu lugar</h3>
+    <p class="sub">Desde escapadas en pareja hasta el uso exclusivo del ecolodge para grupos grandes.</p>
+    <div class="cabs">
+      <article class="cab"><span class="kind">Pareja</span><h4>Cabaña Momotus</h4><p>Privacidad, vistas panorámicas a las montañas y ambiente romántico entre aves y árboles nativos.</p><div class="meta">Hasta 3 personas · 24 m² · 1 dormitorio</div></article>
+      <article class="cab"><span class="kind">Pareja</span><h4>Cabaña Euphonia</h4><p>Diseño elevado y acogedor para descansar con la brisa, los sonidos del bosque y un cielo estrellado.</p><div class="meta">Hasta 3 personas · 24 m² · 1 dormitorio</div></article>
+      <article class="cab"><span class="kind">Familia</span><h4>Habitación Tityra</h4><p>Habitación cómoda con acceso a espacios comunes en contacto con la naturaleza.</p><div class="meta">Hasta 6 personas · 28 m² · 1 dormitorio</div></article>
+      <article class="cab"><span class="kind">Grupos</span><h4>Cabaña Tucán</h4><p>Espacio amplio con áreas sociales y hamacas, rodeado de árboles y con vista a las montañas de Manaure.</p><div class="meta">Hasta 13 personas · 102 m² · 3 dormitorios</div></article>
+      <article class="cab"><span class="kind">Exclusivo</span><h4>Ecolodge Exclusivo</h4><p>Todo el lugar para tu grupo.</p><div class="meta">500 m² · 6 dormitorios</div></article>
+    </div>
+  </section>
+
+  <section class="block band">
+    <h3 class="title">Lo que te espera</h3>
+    <p class="sub">Un plan para desconectarte del ruido.</p>
+    <div class="exp">
+      <div><b>Aves</b><span>Avistamiento entre árboles nativos.</span></div>
+      <div><b>Montañas</b><span>Vistas a las montañas de Manaure.</span></div>
+      <div><b>Piscina</b><span>Para refrescarte después del recorrido.</span></div>
+      <div><b>Cacao</b><span>Chocolate y cacao de la región.</span></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="where">
+      <div>
+        <h3 class="title">Cómo llegar y reservar</h3>
+        <p>Manaure Balcón del Cesar, Cesar, a unos 40 minutos de Valledupar.</p>
+        <p>Elige tus fechas en el motor de reservas para ver disponibilidad y valores, y paga en línea.</p>
+        <a class="cta" href="https://app.hotelsync.com/engine/es?engine_code=8163a6f017069bac3774923a811cf53ff6375daa&adults=2&children=0&currency=COP" target="_blank" rel="noopener">Reservar ahora</a>
+      </div>
+      <div class="contact">
+        <b>Contacto</b>
+        WhatsApp: +57 318 796 4912<br>
+        Correo: eltucanecoturismo@gmail.com<br>
+        Instagram: @tucan_ecolodge
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Instagram @tucan_ecolodge · Manaure Balcón del Cesar, Cesar</span>
+    <span>Empleado digital creado por ZABYA</span>
+  </footer>
+</div>
+
+<script>
+// ES5 on purpose: old in-app browsers (Instagram, WhatsApp) must not fail to parse the script
+(function(){
+  var slot=document.getElementById('chat-slot');
+  // Fill in with the output of the link generator (AES-GCM, base64url); the key stays in the URL #
+  var IV="QPsaxpt-AwR1ykVL", CT="2SC8zwLgfFS0qO_Jnya8Jb24xF06sJOaMcdWm5U4x2wYGdUnLL_EXlkKb_upHkj64HQgBXlTiQSEr-hCZMDfRshap5cCqoutJIQX6g";
+  var MSG_LINK='Este enlace está incompleto. Pide el enlace de la demo a quien te lo compartió.';
+  var MSG_ENV='No se pudo abrir el chat en este navegador. Abre el enlace con https en un navegador actualizado.';
+  var MSG_FAIL='No se pudo abrir el chat. Avísale a quien te compartió el enlace.';
+  function d(b){b=b.replace(/-/g,'+').replace(/_/g,'/');while(b.length%4)b+='=';var s=atob(b),u=new Uint8Array(s.length);for(var i=0;i<s.length;i++)u[i]=s.charCodeAt(i);return u}
+  var run=0;
+  function show(msg,err){
+    if(err) console.error('Tuki demo:',err);
+    slot.textContent=msg;
+  }
+  function urlSupported(){
+    try{ return new URL('https://example.com/').protocol==='https:' }catch(e){ return false }
+  }
+  // Messengers may percent-encode the fragment or glue text after it ('.', ')', '&utm_…'),
+  // so keep only the leading base64url run
+  function readKey(){
+    var h=location.hash.slice(1);
+    try{ h=decodeURIComponent(h) }catch(e){}
+    var m=h.match(/^[A-Za-z0-9_-]+/);
+    return m?m[0]:'';
+  }
+
+  function load(){
+    var id=++run;
+    slot.textContent='Abriendo el chat…';
+    if(!IV||!CT) return show('El chat aparece aquí. Falta conectar el agente Tuki.');
+    if(!(window.crypto && crypto.subtle && window.TextDecoder && urlSupported())) return show(MSG_ENV);
+    var k=readKey();
+    if(!k) return show(MSG_LINK);
+    var key;
+    try{ key=d(k) }catch(e){ return show(MSG_LINK,e) }
+    // AES keys are 16, 24 or 32 bytes; any other length means the key was cut short
+    if([16,24,32].indexOf(key.length)<0) return show(MSG_LINK,new Error('longitud de clave inválida: '+key.length));
+
+    crypto.subtle.importKey('raw',key,'AES-GCM',false,['decrypt']).then(function(ck){
+      return crypto.subtle.decrypt({name:'AES-GCM',iv:d(IV)},ck,d(CT)).then(null,function(e){
+        // Right length but wrong bytes: the key was altered when the link was shared
+        e.isDecrypt=true; throw e;
+      });
+    }).then(function(buf){
+      if(id!==run) return;
+      var u;
+      try{
+        u=new URL(new TextDecoder().decode(buf));
+        // The link generator should already guarantee these; kept because the sandbox depends on them
+        if(u.protocol!=='https:') throw new Error('esquema no permitido: '+u.protocol);
+        // With allow-scripts + allow-same-origin, a same-origin iframe could remove its own sandbox
+        if(u.origin===location.origin) throw new Error('el chat no puede servirse desde este mismo dominio');
+      }catch(e){ return show(MSG_FAIL,e) }
+      var f=document.createElement('iframe');
+      f.id='chat-frame';
+      f.title='Chat con Tuki, el empleado digital de Tucán Ecolodge';
+      // The chat provider may allowlist embedding domains by Referer, so send the origin (not the path)
+      f.allow='autoplay'; f.referrerPolicy='strict-origin-when-cross-origin';
+      f.setAttribute('sandbox','allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox');
+      // framing must be allowed for this domain on the provider side
+      f.src=u.href;
+      slot.parentNode.replaceChild(f,slot);
+    },function(e){
+      if(id!==run) return;
+      // importKey failing on a valid-length key means this browser's WebCrypto lacks AES-GCM
+      show(e && e.isDecrypt?MSG_LINK:MSG_ENV,e);
+    });
+  }
+
+  // Fixing the link in the same tab only changes the #, so try again; never once the chat is open
+  window.addEventListener('hashchange',function(){
+    if(!document.getElementById('chat-frame')) load();
+  });
+  load();
+})();
+</script>
+</body>
+</html>
